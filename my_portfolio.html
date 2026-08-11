@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Edgar S. Manzano — Full-Stack Developer</title>
+<meta name="description" content="Full-stack developer portfolio — Laravel, React 19, Inertia.js, Vite, Tailwind CSS. Government, HR, payments, and housing-finance systems." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23282a36'/%3E%3Ctext x='50' y='68' font-size='52' font-family='monospace' font-weight='700' fill='%23ff79c6' text-anchor='middle'%3E%3C/%3E%3C/text%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+          mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
+        },
+        colors: {
+          drac: {
+            bg: '#282a36',
+            bg2: '#21222c',
+            panel: '#2b2d3a',
+            line: '#44475a',
+            fg: '#f8f8f2',
+            comment: '#6272a4',
+            cyan: '#8be9fd',
+            green: '#50fa7b',
+            orange: '#ffb86c',
+            pink: '#ff79c6',
+            purple: '#bd93f9',
+            red: '#ff5555',
+            yellow: '#f1fa8c',
+          },
+        },
+      },
+    },
+  };
+</script>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@19.2.7",
+    "react-dom/client": "https://esm.sh/react-dom@19.2.7/client"
+  }
+}
+</script>
+<style>
+  html { scroll-behavior: smooth; overflow-x: hidden; }
+  body {
+    overflow-x: hidden;
+    background-color: #21222c;
+    background-image:
+      radial-gradient(ellipse 80% 50% at 15% -10%, rgba(189,147,249,0.24), transparent),
+      radial-gradient(ellipse 60% 40% at 90% 10%, rgba(255,121,198,0.15), transparent),
+      radial-gradient(ellipse 70% 50% at 50% 100%, rgba(139,233,253,0.12), transparent);
+    background-attachment: fixed;
+  }
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.045) 1px, transparent 1px);
+    background-size: 44px 44px;
+    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, black 40%, transparent 100%);
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, black 40%, transparent 100%);
+  }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: #21222c; }
+  ::-webkit-scrollbar-thumb { background: #44475a; border-radius: 8px; }
+  ::-webkit-scrollbar-thumb:hover { background: #bd93f9; }
+  .glass {
+    background: linear-gradient(180deg, rgba(68,71,90,0.4), rgba(68,71,90,0.2));
+    border: 1px solid rgba(255,255,255,0.08);
+    backdrop-filter: blur(10px);
+  }
+  .card-hover { transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease; }
+  .card-hover:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255,121,198,0.35);
+    box-shadow: 0 20px 45px -20px rgba(255,121,198,0.25);
+  }
+  .grad-text {
+    background: linear-gradient(90deg, #bd93f9, #ff79c6 60%, #8be9fd);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .btn-gradient {
+    background: linear-gradient(90deg, #bd93f9, #ff79c6 55%, #8be9fd);
+    background-size: 160% 100%;
+    background-position: 0% 0%;
+    color: #21222c;
+    transition: background-position .35s ease, box-shadow .35s ease, transform .2s ease;
+  }
+  .btn-gradient:hover {
+    background-position: 100% 0%;
+    box-shadow: 0 14px 34px -12px rgba(255,121,198,0.55);
+    transform: translateY(-1px);
+  }
+  .gradient-border {
+    position: relative;
+    border: 1px solid transparent;
+    background:
+      linear-gradient(180deg, rgba(33,34,44,0.9), rgba(33,34,44,0.65)) padding-box,
+      linear-gradient(135deg, rgba(189,147,249,0.65), rgba(255,121,198,0.55), rgba(139,233,253,0.65)) border-box;
+    backdrop-filter: blur(10px);
+  }
+  .accent-bar {
+    height: 3px;
+    width: 2.25rem;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #bd93f9, #ff79c6, #8be9fd);
+  }
+  .dot-glow { box-shadow: 0 0 0 3px rgba(80,250,123,0.18), 0 0 14px 2px rgba(80,250,123,0.55); }
+  .hairline {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(189,147,249,0.5), rgba(255,121,198,0.5), rgba(139,233,253,0.5), transparent);
+  }
+  .chip {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.02em;
+  }
+  @keyframes floaty { 0%,100% { transform: translateY(0px);} 50% { transform: translateY(-10px);} }
+  .float { animation: floaty 6s ease-in-out infinite; }
+  .fade-up { animation: fadeUp .6s ease both; }
+  @keyframes fadeUp { from { opacity:0; transform: translateY(14px);} to { opacity:1; transform: translateY(0);} }
+  #root:empty::after {
+    content: 'Loading portfolio…';
+    display: block;
+    text-align: center;
+    padding: 4rem;
+    color: #64748b;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* Scroll-reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity .75s cubic-bezier(.16,1,.3,1), transform .75s cubic-bezier(.16,1,.3,1);
+    will-change: opacity, transform;
+  }
+  .reveal-in { opacity: 1; transform: translateY(0); }
+
+  /* Aurora drifting background blobs */
+  .aurora { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+  .aurora span {
+    position: absolute;
+    border-radius: 999px;
+    filter: blur(90px);
+    opacity: 0.55;
+  }
+  .aurora span:nth-child(1) {
+    width: 42vw; height: 42vw; left: -10%; top: -12%;
+    background: radial-gradient(circle, rgba(189,147,249,0.45), transparent 70%);
+    animation: driftA 22s ease-in-out infinite;
+  }
+  .aurora span:nth-child(2) {
+    width: 36vw; height: 36vw; right: -8%; top: 8%;
+    background: radial-gradient(circle, rgba(255,121,198,0.35), transparent 70%);
+    animation: driftB 26s ease-in-out infinite;
+  }
+  .aurora span:nth-child(3) {
+    width: 38vw; height: 38vw; left: 20%; bottom: -18%;
+    background: radial-gradient(circle, rgba(139,233,253,0.3), transparent 70%);
+    animation: driftC 30s ease-in-out infinite;
+  }
+  @keyframes driftA {
+    0%,100% { transform: translate(0,0) scale(1); }
+    50% { transform: translate(6vw, 8vh) scale(1.12); }
+  }
+  @keyframes driftB {
+    0%,100% { transform: translate(0,0) scale(1); }
+    50% { transform: translate(-7vw, 6vh) scale(0.9); }
+  }
+  @keyframes driftC {
+    0%,100% { transform: translate(0,0) scale(1); }
+    50% { transform: translate(5vw, -6vh) scale(1.08); }
+  }
+
+  /* Button shine sweep */
+  .btn-gradient { position: relative; overflow: hidden; }
+  .btn-gradient::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -75%;
+    width: 45%; height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.55), transparent);
+    transform: skewX(-20deg);
+    transition: left .65s ease;
+  }
+  .btn-gradient:hover::after { left: 130%; }
+
+  /* Tilt cards */
+  .tilt-card { transition: transform .15s ease, border-color .25s ease, box-shadow .25s ease; will-change: transform; }
+
+  /* Scroll progress bar */
+  .scroll-progress {
+    position: fixed; top: 0; left: 0; height: 3px; z-index: 60;
+    background: linear-gradient(90deg, #bd93f9, #ff79c6, #8be9fd);
+    box-shadow: 0 0 12px 1px rgba(255,121,198,0.6);
+    transition: width .12s ease-out;
+  }
+
+  /* Hero widget: tech constellation graph */
+  .code-window {
+    border-radius: 14px;
+    overflow: hidden;
+    background: #21222c;
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 30px 60px -25px rgba(0,0,0,0.6), 0 0 0 1px rgba(189,147,249,0.06);
+  }
+  @keyframes constDrift {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(3px, -3px); }
+  }
+
+  .git-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .68rem;
+    display: inline-flex; align-items: center; gap: .35rem;
+    padding: .25rem .55rem;
+    border-radius: 6px;
+    background: rgba(68,71,90,0.4);
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: border-color .2s ease, background .2s ease, transform .2s ease;
+  }
+  .git-badge:hover { border-color: rgba(255,255,255,0.2); background: rgba(68,71,90,0.65); transform: translateY(-1px); }
+  .git-badge:hover svg { transform: scale(1.15); }
+  .git-badge svg { transition: transform .2s ease; }
+
+  /* Icon badges */
+  .icon-badge {
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 10px;
+    background-color: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.09);
+    transition: transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s ease, border-color .25s ease, background-color .25s ease;
+  }
+  .icon-badge:hover { transform: scale(1.12) translateY(-2px); background-color: rgba(255,255,255,0.09); }
+  .icon-badge.glow-purple:hover { border-color: rgba(189,147,249,0.5); box-shadow: 0 6px 20px -6px rgba(189,147,249,0.55); }
+  .icon-badge.glow-pink:hover { border-color: rgba(255,121,198,0.5); box-shadow: 0 6px 20px -6px rgba(255,121,198,0.55); }
+  .icon-badge.glow-cyan:hover { border-color: rgba(139,233,253,0.5); box-shadow: 0 6px 20px -6px rgba(139,233,253,0.55); }
+  .icon-badge.glow-green:hover { border-color: rgba(80,250,123,0.5); box-shadow: 0 6px 20px -6px rgba(80,250,123,0.55); }
+  .icon-badge.glow-orange:hover { border-color: rgba(255,184,108,0.5); box-shadow: 0 6px 20px -6px rgba(255,184,108,0.55); }
+
+  .copy-btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 1.75rem; height: 1.75rem; border-radius: 6px;
+    color: #6272a4;
+    transition: color .2s ease, background .2s ease, transform .15s ease;
+  }
+  .copy-btn:hover { color: #8be9fd; background: rgba(139,233,253,0.1); transform: scale(1.08); }
+  .copy-btn.copied { color: #50fa7b; }
+  .copy-tip {
+    position: absolute; bottom: calc(100% + 6px); right: 0;
+    font-family: 'JetBrains Mono', monospace; font-size: .65rem;
+    color: #50fa7b; background: #191a21; border: 1px solid rgba(80,250,123,0.3);
+    padding: .2rem .5rem; border-radius: 5px; white-space: nowrap;
+    animation: tipPop 1.4s ease forwards;
+    pointer-events: none;
+  }
+  @keyframes tipPop {
+    0% { opacity: 0; transform: translateY(4px); }
+    12%, 78% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-4px); }
+  }
+
+  /* Back to top */
+  .back-to-top {
+    position: fixed; right: 1.5rem; bottom: 1.5rem; z-index: 55;
+    width: 3rem; height: 3rem; border-radius: 999px;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none; transform: translateY(12px) scale(0.9);
+    transition: opacity .3s ease, transform .3s ease;
+  }
+  .back-to-top.show { opacity: 1; pointer-events: auto; transform: translateY(0) scale(1); }
+</style>
+</head>
+<body class="text-slate-200 font-sans antialiased min-h-screen">
+<div id="root"></div>
+
+<script type="module">
+import React, { useState, useMemo, useEffect, useRef } from "react";
+import { createRoot } from "react-dom/client";
+
+const e = React.createElement;
+const SECTION_IDS = ["about", "experience", "stack", "flagship", "projects", "contact"];
+
+/* ---------------- Effects: hooks & utility components ---------------- */
+
+function useInView(threshold = 0.15) {
+  const ref = useRef(null);
+  const [inView, setInView] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          obs.unobserve(el);
+        }
+      },
+      { threshold }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+  return [ref, inView];
+}
+
+function Reveal({ children, delay = 0, className = "" }) {
+  const [ref, inView] = useInView();
+  return e(
+    "div",
+    {
+      ref,
+      className: "reveal" + (inView ? " reveal-in" : "") + (className ? " " + className : ""),
+      style: { transitionDelay: inView ? delay + "ms" : "0ms" },
+    },
+    children
+  );
+}
+
+function useActiveSection(ids) {
+  const [active, setActive] = useState(ids[0]);
+  useEffect(() => {
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActive(entry.target.id);
+        });
+      },
+      { rootMargin: "-45% 0px -50% 0px", threshold: 0 }
+    );
+    ids.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) obs.observe(el);
+    });
+    return () => obs.disconnect();
+  }, []);
+  return active;
+}
+
+function useTilt(strength = 10) {
+  const ref = useRef(null);
+  const onMouseMove = (evt) => {
+    const el = ref.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const px = (evt.clientX - rect.left) / rect.width - 0.5;
+    const py = (evt.clientY - rect.top) / rect.height - 0.5;
+    el.style.transform =
+      "perspective(700px) rotateX(" + (-py * strength) + "deg) rotateY(" + (px * strength) + "deg) translateY(-4px)";
+  };
+  const onMouseLeave = () => {
+    const el = ref.current;
+    if (el) el.style.transform = "perspective(700px) rotateX(0deg) rotateY(0deg) translateY(0)";
+  };
+  return { ref, onMouseMove, onMouseLeave };
+}
+
+function CountUp({ target, suffix = "", duration = 1200 }) {
+  const [ref, inView] = useInView(0.6);
+  const [value, setValue] = useState(0);
+  useEffect(() => {
+    if (!inView) return;
+    const numeric = parseInt(String(target).replace(/[^0-9]/g, ""), 10) || 0;
+    const start = performance.now();
+    let frame;
+    const tick = (now) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setValue(Math.round(numeric * eased));
+      if (progress < 1) frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [inView]);
+  return e("div", { ref, className: "text-2xl sm:text-3xl font-bold font-mono grad-text" }, value + suffix);
+}
+
+function ScrollProgress() {
+  const [width, setWidth] = useState(0);
+  useEffect(() => {
+    const onScroll = () => {
+      const h = document.documentElement;
+      const scrollable = h.scrollHeight - h.clientHeight;
+      setWidth(scrollable > 0 ? (h.scrollTop / scrollable) * 100 : 0);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  return e("div", { className: "scroll-progress", style: { width: width + "%" } });
+}
+
+function AuroraBackground() {
+  return e("div", { className: "aurora" }, e("span"), e("span"), e("span"));
+}
+
+function BackToTop() {
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setShow(window.scrollY > 600);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  return e(
+    "button",
+    {
+      onClick: () => window.scrollTo({ top: 0, behavior: "smooth" }),
+      className: "back-to-top btn-gradient shadow-lg shadow-drac-purple/25" + (show ? " show" : ""),
+      "aria-label": "Back to top",
+    },
+    e(
+      "svg",
+      { viewBox: "0 0 24 24", width: 18, height: 18, fill: "none", stroke: "currentColor", strokeWidth: 2.5, strokeLinecap: "round", strokeLinejoin: "round" },
+      e("path", { d: "M12 19V5" }),
+      e("path", { d: "M5 12l7-7 7 7" })
+    )
+  );
+}
+
+/* ---------------- Icons ---------------- */
+
+function TechIcon({ slug, name }) {
+  const inner = !slug
+    ? e(
+        "svg",
+        { viewBox: "0 0 24 24", width: 16, height: 16, fill: "none", stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round", className: "text-drac-cyan" },
+        e("rect", { x: 3, y: 11, width: 18, height: 10, rx: 2 }),
+        e("path", { d: "M7 11V7a5 5 0 0 1 10 0v4" })
+      )
+    : e("img", {
+        src: "https://cdn.simpleicons.org/" + slug + "/ff79c6",
+        alt: name + " logo",
+        width: 16,
+        height: 16,
+        loading: "lazy",
+        onError: (evt) => {
+          evt.target.style.display = "none";
+        },
+      });
+  return e("span", { className: "icon-badge glow-pink w-8 h-8 shrink-0" }, inner);
+}
+
+const ICON_PATHS = {
+  mail: [
+    e("rect", { key: "a", x: 2, y: 4, width: 20, height: 16, rx: 2 }),
+    e("path", { key: "b", d: "m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" }),
+  ],
+  linkedin: [
+    e("path", { key: "a", d: "M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" }),
+    e("rect", { key: "b", x: 2, y: 9, width: 4, height: 12 }),
+    e("circle", { key: "c", cx: 4, cy: 4, r: 2 }),
+  ],
+  github: [
+    e("path", {
+      key: "a",
+      d: "M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22",
+    }),
+  ],
+  "map-pin": [
+    e("path", { key: "a", d: "M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" }),
+    e("circle", { key: "b", cx: 12, cy: 10, r: 3 }),
+  ],
+  "git-branch": [
+    e("line", { key: "a", x1: 6, y1: 3, x2: 6, y2: 15 }),
+    e("circle", { key: "b", cx: 18, cy: 6, r: 3 }),
+    e("circle", { key: "c", cx: 6, cy: 18, r: 3 }),
+    e("path", { key: "d", d: "M18 9a9 9 0 0 1-9 9" }),
+  ],
+  "git-commit": [
+    e("circle", { key: "a", cx: 12, cy: 12, r: 4 }),
+    e("line", { key: "b", x1: 1.05, y1: 12, x2: 7, y2: 12 }),
+    e("line", { key: "c", x1: 17, y1: 12, x2: 22.95, y2: 12 }),
+  ],
+  user: [
+    e("path", { key: "a", d: "M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" }),
+    e("circle", { key: "b", cx: 12, cy: 7, r: 4 }),
+  ],
+  briefcase: [
+    e("rect", { key: "a", x: 2, y: 7, width: 20, height: 14, rx: 2 }),
+    e("path", { key: "b", d: "M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" }),
+  ],
+  layers: [
+    e("polygon", { key: "a", points: "12 2 2 7 12 12 22 7 12 2" }),
+    e("polyline", { key: "b", points: "2 17 12 22 22 17" }),
+    e("polyline", { key: "c", points: "2 12 12 17 22 12" }),
+  ],
+  zap: [e("polygon", { key: "a", points: "13 2 3 14 12 14 11 22 21 10 12 10 13 2" })],
+  folder: [e("path", { key: "a", d: "M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" })],
+  copy: [
+    e("rect", { key: "a", x: 9, y: 9, width: 13, height: 13, rx: 2 }),
+    e("path", { key: "b", d: "M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" }),
+  ],
+  check: [e("polyline", { key: "a", points: "20 6 9 17 4 12" })],
+  "external-link": [
+    e("path", { key: "a", d: "M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" }),
+    e("polyline", { key: "b", points: "15 3 21 3 21 9" }),
+    e("line", { key: "c", x1: 10, y1: 14, x2: 21, y2: 3 }),
+  ],
+  building: [
+    e("rect", { key: "a", x: 4, y: 2, width: 16, height: 20, rx: 1 }),
+    e("line", { key: "b", x1: 9, y1: 7, x2: 9, y2: 7 }),
+    e("line", { key: "c", x1: 15, y1: 7, x2: 15, y2: 7 }),
+    e("line", { key: "d", x1: 9, y1: 12, x2: 9, y2: 12 }),
+    e("line", { key: "e", x1: 15, y1: 12, x2: 15, y2: 12 }),
+    e("line", { key: "f", x1: 9, y1: 17, x2: 15, y2: 17 }),
+  ],
+  "credit-card": [
+    e("rect", { key: "a", x: 2, y: 5, width: 20, height: 14, rx: 2 }),
+    e("line", { key: "b", x1: 2, y1: 10, x2: 22, y2: 10 }),
+  ],
+  users: [
+    e("path", { key: "a", d: "M17 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" }),
+    e("circle", { key: "b", cx: 9, cy: 7, r: 4 }),
+    e("path", { key: "c", d: "M23 21v-2a4 4 0 0 0-3-3.87" }),
+    e("path", { key: "d", d: "M16 3.13a4 4 0 0 1 0 7.75" }),
+  ],
+  shield: [e("path", { key: "a", d: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" })],
+  wrench: [
+    e("path", {
+      key: "a",
+      d: "M14.7 6.3a4 4 0 1 0-5.4 5.4L2 19v3h3l7.3-7.3a4 4 0 0 0 5.4-5.4z",
+    }),
+  ],
+  grid: [
+    e("rect", { key: "a", x: 3, y: 3, width: 7, height: 7, rx: 1 }),
+    e("rect", { key: "b", x: 14, y: 3, width: 7, height: 7, rx: 1 }),
+    e("rect", { key: "c", x: 14, y: 14, width: 7, height: 7, rx: 1 }),
+    e("rect", { key: "d", x: 3, y: 14, width: 7, height: 7, rx: 1 }),
+  ],
+};
+
+function Icon({ name, className = "" }) {
+  return e(
+    "svg",
+    {
+      viewBox: "0 0 24 24",
+      width: 18,
+      height: 18,
+      fill: "none",
+      stroke: "currentColor",
+      strokeWidth: 2,
+      strokeLinecap: "round",
+      strokeLinejoin: "round",
+      className,
+    },
+    ICON_PATHS[name]
+  );
+}
+
+/* ---------------- Data ---------------- */
+
+const CONTACT_EMAIL = "edgarsiomanzano31@gmail.com";
+const GMAIL_COMPOSE_URL =
+  "https://mail.google.com/mail/?view=cm&fs=1&to=" + encodeURIComponent(CONTACT_EMAIL);
+
+const CONTACT_LINKS = [
+  { icon: "mail", label: "Email", value: CONTACT_EMAIL, href: GMAIL_COMPOSE_URL },
+  { icon: "linkedin", label: "LinkedIn", value: "linkedin.com/in/edgar-manzano-9918a9286", href: "https://www.linkedin.com/in/edgar-manzano-9918a9286" },
+  { icon: "github", label: "GitHub", value: "github.com/dgrmnzn", href: "https://github.com/dgrmnzn" },
+  { icon: "map-pin", label: "Location", value: "Philippines", href: null },
+];
+
+const TECH_STACK = [
+  { name: "React 19", note: "UI library", icon: "react" },
+  { name: "Inertia.js", note: "SPA glue", icon: "inertia" },
+  { name: "Vite", note: "Build tool", icon: "vite" },
+  { name: "Tailwind CSS v4", note: "Styling", icon: "tailwindcss" },
+  { name: "MUI", note: "Components", icon: "mui" },
+  { name: "Laravel 8/12", note: "Backend framework", icon: "laravel" },
+  { name: "PHP 7.4 / 8.1 / 8.2", note: "Backend language", icon: "php" },
+  { name: "Sanctum / Passport", note: "Auth & SSO", icon: null },
+  { name: "MySQL", note: "Database", icon: "mysql" },
+  { name: "PostgreSQL", note: "Database", icon: "postgresql" },
+  { name: "L5-Swagger", note: "API docs", icon: "swagger" },
+  { name: "Vue.js 2", note: "Legacy SPA work", icon: "vuedotjs" },
+  { name: "AdminLTE / Bootstrap", note: "Legacy dashboards", icon: "bootstrap" },
+  { name: "DomPDF / Excel", note: "Reporting", icon: "microsoftexcel" },
+  { name: "Claude Code", note: "Agentic AI dev tooling", icon: "claude" },
+];
+
+const COMPETENCIES = [
+  "Legacy Laravel/AdminLTE modernization into decoupled React + Inertia architectures",
+  "REST API design with Sanctum/Passport auth and Swagger documentation",
+  "Role-based access control & multi-tenant government platforms",
+  "Payment gateway integration for LGU and utility e-payment portals",
+  "PDF/Excel reporting pipelines (DomPDF, Maatwebsite Excel)",
+  "Barcode/QR generation for permits, receipts, and demand notices",
+];
+
+const CATEGORIES = [
+  { key: "all", label: "All", icon: "grid" },
+  { key: "gov", label: "Government & LGU", icon: "building" },
+  { key: "payments", label: "Payments & Finance", icon: "credit-card" },
+  { key: "hr", label: "HR & Operations", icon: "users" },
+  { key: "welfare", label: "Identity & Welfare", icon: "shield" },
+  { key: "specialized", label: "Specialized Systems", icon: "wrench" },
+];
+
+const PROJECTS = [
+  {
+    name: "eBOSS-BAIS",
+    tagline: "Business One-Stop-Shop & Assessment Info System",
+    desc: "Multi-step business registration workflow with online e-payment return handling, business lookup, and assessment reporting for an LGU one-stop-shop.",
+    stack: ["Laravel", "AdminLTE", "DomPDF", "e-Payment"],
+    cats: ["gov", "payments"],
+  },
+  {
+    name: "Pagadian eBPLS",
+    tagline: "Electronic Business Permit & Licensing System",
+    desc: "City-wide LGU platform for issuing business permits, assessing real property tax, and managing tricycle-franchise payments — with abstract-of-collection and consolidation reporting, PDF permit generation, and barcode/QR codes printed on permits and receipts.",
+    stack: ["Laravel", "AdminLTE", "Sanctum", "DomPDF", "Excel", "Barcode/QR"],
+    cats: ["gov"],
+  },
+  {
+    name: "PESO System",
+    tagline: "Public Employment Service Office Platform",
+    desc: "Job seeker/employer matching, SPES & internship program administration, and business accreditation for a government employment-facilitation office.",
+    stack: ["Laravel", "AdminLTE", "Sanctum", "Excel"],
+    cats: ["gov", "hr"],
+  },
+  {
+    name: "HRIS",
+    tagline: "HR Information System",
+    desc: "Employee records management and reporting system built on Laravel with Excel export pipelines.",
+    stack: ["Laravel", "AdminLTE", "Sanctum", "Excel"],
+    cats: ["hr"],
+  },
+  {
+    name: "Property & Procurement Management System",
+    tagline: "Asset Procurement, Inspection & Inventory",
+    desc: "Hybrid server-rendered/SPA app for acceptance & inspection reports, item detailing, and procurement inventory — Vue 2 components inside a Laravel/AdminLTE shell.",
+    stack: ["Laravel", "Vue 2", "Bootstrap 5", "Sanctum"],
+    cats: ["hr"],
+  },
+  {
+    name: "Danao e-Payment Portals",
+    tagline: "LGU & Utility Online Payment Gateways",
+    desc: "A family of online bill-payment portals for a city government and its water utility (dgpay, altpay, waterworks variants), each handling gateway callbacks and account lookups.",
+    stack: ["Laravel", "Sanctum", "Payment Gateway"],
+    cats: ["payments"],
+  },
+  {
+    name: "Resident Welfare & Medicine Inventory System",
+    tagline: "Social Welfare Beneficiary & Pharmacy Inventory",
+    desc: "Combines a household/resident registry with photo-ID capture for social welfare disbursement, plus a pharmacy-style inventory module for medicine stock issuance and reorder reporting.",
+    stack: ["Laravel", "AdminLTE", "DomPDF"],
+    cats: ["welfare"],
+  },
+  {
+    name: "SJDB Resident ID System",
+    tagline: "Municipal Resident ID & Household Registry",
+    desc: "A separate municipal deployment of the resident-ID product line, with barangay-level scan workflows and household assistance registries.",
+    stack: ["Laravel", "AdminLTE", "DomPDF"],
+    cats: ["welfare"],
+  },
+  {
+    name: "QAS Bilrey",
+    tagline: "Construction Site QA & Inspection Tracker",
+    desc: "Field inspection system for a construction contractor — daily inspections, concrete pour logs, deliveries, punch lists, and workmanship checklists.",
+    stack: ["Laravel", "AdminLTE", "Sanctum", "Excel"],
+    cats: ["specialized"],
+  },
+  {
+    name: "DSHUD Document Routing",
+    tagline: "Document & Parcel Routing System",
+    desc: "Internal case-routing and transaction-history tracker with barcode-based lookup and a Vue-powered charting dashboard.",
+    stack: ["Laravel", "Vue 2", "AdminLTE", "Barcode"],
+    cats: ["specialized", "gov"],
+  },
+  {
+    name: "City Pharmacy System",
+    tagline: "Pharmacy Inventory & Dispensing",
+    desc: "CORS-enabled Laravel system for pharmacy stock and dispensing records, built on an AdminLTE dashboard.",
+    stack: ["Laravel 8", "AdminLTE", "CORS"],
+    cats: ["specialized"],
+  },
+  {
+    name: "NHA Demand Notices",
+    tagline: "Housing Account Demand Notice Generator",
+    desc: "Generates barcode/QR-coded demand notices for housing account arrears, part of the broader NHA housing systems line.",
+    stack: ["Laravel", "AdminLTE", "Barcode/QR"],
+    cats: ["gov"],
+  },
+  {
+    name: "PhoenixOne",
+    tagline: "Internal Management System",
+    desc: "A Laravel + AdminLTE administrative system built earlier in the same product line as the NHA and LGU platforms above.",
+    stack: ["Laravel 8", "AdminLTE"],
+    cats: ["gov"],
+  },
+];
+
+/* ---------------- Small building blocks ---------------- */
+
+function Chip({ children }) {
+  return e(
+    "span",
+    { className: "chip inline-block px-2 py-1 rounded-md bg-white/5 border border-white/10 text-slate-300" },
+    children
+  );
+}
+
+const GIT_TONES = {
+  green: "text-drac-green",
+  pink: "text-drac-pink",
+  orange: "text-drac-orange",
+  cyan: "text-drac-cyan",
+  purple: "text-drac-purple",
+};
+
+function GitBadge({ icon, tone = "cyan", children }) {
+  return e(
+    "span",
+    { className: "git-badge text-slate-300" },
+    e(Icon, { name: icon, className: "w-3 h-3 shrink-0 " + (GIT_TONES[tone] || GIT_TONES.cyan) }),
+    children
+  );
+}
+
+function SectionHeading({ eyebrow, title, subtitle, icon, tone = "pink" }) {
+  return e(
+    Reveal,
+    { className: "mb-10" },
+    e(
+      "div",
+      { className: "flex items-center gap-3 mb-4" },
+      icon && e("span", { className: "icon-badge glow-" + tone + " w-9 h-9" }, e(Icon, { name: icon, className: "text-drac-" + tone })),
+      e("div", { className: "accent-bar" })
+    ),
+    e("p", { className: "chip grad-text mb-3 uppercase" }, eyebrow),
+    e("h2", { className: "text-3xl sm:text-4xl font-extrabold text-white tracking-tight" }, title),
+    subtitle && e("p", { className: "mt-3 text-slate-400 max-w-2xl" }, subtitle)
+  );
+}
+
+/* ---------------- Sections ---------------- */
+
+function Nav() {
+  const links = [
+    ["About", "#about", "My background & focus"],
+    ["Experience", "#experience", "Current role"],
+    ["Stack", "#stack", "Tools I reach for"],
+    ["Flagship", "#flagship", "The LIBIS platform"],
+    ["Projects", "#projects", "13 systems shipped"],
+    ["Contact", "#contact", "Let's talk"],
+  ];
+  const active = useActiveSection(SECTION_IDS);
+  const [menuOpen, setMenuOpen] = useState(false);
+  return e(
+    "header",
+    { className: "sticky top-0 z-50 bg-[#21222c]/80 backdrop-blur-md" },
+    e(
+      "nav",
+      { className: "max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3" },
+      e(
+        "a",
+        { href: "#", className: "group flex items-center gap-2.5 min-w-0" },
+        e(
+          "span",
+          {
+            className:
+              "shrink-0 flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-drac-purple via-drac-pink to-drac-cyan text-slate-950 font-mono font-extrabold text-[11px] shadow-lg shadow-drac-purple/20 group-hover:shadow-drac-pink/40 group-hover:scale-105 transition-all",
+          },
+          "EM"
+        ),
+        e(
+          "span",
+          { className: "font-mono font-semibold tracking-tight text-sm sm:text-base grad-text truncate" },
+          "Edgar S. Manzano"
+        )
+      ),
+      e(
+        "div",
+        { className: "hidden sm:flex items-center gap-7 text-sm text-slate-400" },
+        links.map(([label, href, detail]) => {
+          const isActive = active === href.slice(1);
+          return e(
+            "a",
+            { key: label, href, className: "group relative py-2" },
+            e(
+              "span",
+              {
+                className:
+                  "relative z-10 transition-colors duration-300 " +
+                  (isActive ? "grad-text" : "group-hover:text-drac-cyan"),
+              },
+              label
+            ),
+            e("span", {
+              className:
+                "absolute left-0 -bottom-0.5 h-px bg-gradient-to-r from-drac-purple via-drac-pink to-drac-cyan transition-all duration-300 ease-out " +
+                (isActive ? "w-full" : "w-0 group-hover:w-full"),
+            }),
+            e(
+              "span",
+              {
+                className:
+                  "chip pointer-events-none absolute left-1/2 top-full mt-2 -translate-x-1/2 translate-y-1 whitespace-nowrap rounded-md border border-white/10 bg-[#21222c]/95 px-2.5 py-1 text-slate-400 opacity-0 shadow-lg shadow-black/40 transition-all duration-300 ease-out group-hover:translate-y-0 group-hover:opacity-100",
+              },
+              detail
+            )
+          );
+        })
+      ),
+      e(
+        "div",
+        { className: "flex items-center gap-2 sm:gap-3 shrink-0" },
+        e(
+          "a",
+          {
+            href: GMAIL_COMPOSE_URL,
+            target: "_blank",
+            rel: "noopener noreferrer",
+            className:
+              "flex items-center gap-1.5 text-xs sm:text-sm px-3 sm:px-4 py-1.5 rounded-full border border-drac-pink/30 text-drac-cyan hover:bg-gradient-to-r hover:from-drac-purple/15 hover:via-drac-pink/15 hover:to-drac-cyan/15 hover:border-drac-pink/50 transition-all whitespace-nowrap",
+          },
+          e(Icon, { name: "mail", className: "w-3.5 h-3.5" }),
+          "Say hello"
+        ),
+        e(
+          "button",
+          {
+            type: "button",
+            onClick: () => setMenuOpen((v) => !v),
+            className:
+              "sm:hidden flex items-center justify-center w-9 h-9 rounded-lg border border-white/10 text-slate-300 hover:border-drac-pink/40 hover:text-drac-cyan transition-colors",
+            "aria-label": menuOpen ? "Close menu" : "Open menu",
+            "aria-expanded": menuOpen,
+          },
+          e(
+            "svg",
+            { viewBox: "0 0 24 24", width: 18, height: 18, fill: "none", stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round" },
+            menuOpen
+              ? [e("path", { key: "a", d: "M18 6 6 18" }), e("path", { key: "b", d: "M6 6l12 12" })]
+              : [e("path", { key: "a", d: "M3 6h18" }), e("path", { key: "b", d: "M3 12h18" }), e("path", { key: "c", d: "M3 18h18" })]
+          )
+        )
+      )
+    ),
+    e(
+      "div",
+      {
+        className:
+          "sm:hidden overflow-hidden transition-[max-height,opacity] duration-300 ease-out " +
+          (menuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"),
+      },
+      e(
+        "div",
+        { className: "px-4 pb-4 pt-1 flex flex-col gap-1 border-t border-white/5" },
+        links.map(([label, href]) => {
+          const isActive = active === href.slice(1);
+          return e(
+            "a",
+            {
+              key: label,
+              href,
+              onClick: () => setMenuOpen(false),
+              className:
+                "py-2.5 px-3 rounded-lg text-sm transition-colors " +
+                (isActive ? "grad-text bg-white/5" : "text-slate-400 hover:text-drac-cyan hover:bg-white/5"),
+            },
+            label
+          );
+        })
+      )
+    ),
+    e("div", { className: "hairline" })
+  );
+}
+
+function pseudoRandom(seed) {
+  const x = Math.sin(seed * 12.9898) * 43758.5453;
+  return x - Math.floor(x);
+}
+
+const CONSTELLATION_TONES = {
+  purple: "#bd93f9",
+  pink: "#ff79c6",
+  cyan: "#8be9fd",
+  green: "#50fa7b",
+  yellow: "#f1fa8c",
+  orange: "#ffb86c",
+};
+
+const STACK_NODES = [
+  { label: "Laravel", tone: "purple", hub: true },
+  { label: "React 19", tone: "cyan" },
+  { label: "Inertia.js", tone: "pink" },
+  { label: "Vite", tone: "yellow" },
+  { label: "Tailwind", tone: "cyan" },
+  { label: "MySQL", tone: "green" },
+  { label: "PostgreSQL", tone: "purple" },
+  { label: "Sanctum", tone: "pink" },
+  { label: "Claude Code", tone: "orange" },
+];
+
+const STACK_EDGES = [
+  [0, 1], [0, 2], [0, 3], [0, 4], [0, 5], [0, 6], [0, 7], [0, 8],
+  [1, 2], [3, 4], [5, 6], [1, 3],
+];
+
+function CodeWindow() {
+  const [hover, setHover] = useState(null);
+  const SIZE = 340;
+  const positions = useMemo(() => {
+    const cx = SIZE / 2;
+    const cy = SIZE / 2;
+    const baseRadius = 122;
+    const satellites = STACK_NODES.length - 1;
+    return STACK_NODES.map((n, i) => {
+      if (i === 0) return { ...n, x: cx, y: cy, r: 24 };
+      const idx = i - 1;
+      const angle = (idx / satellites) * Math.PI * 2 - Math.PI / 2;
+      const jitter = 0.82 + pseudoRandom(i * 3.7) * 0.32;
+      const radius = baseRadius * jitter;
+      return { ...n, x: cx + Math.cos(angle) * radius, y: cy + Math.sin(angle) * radius, r: 15 };
+    });
+  }, []);
+
+  const isEdgeActive = (a, b) => hover !== null && (hover === a || hover === b);
+
+  return e(
+    "div",
+    { className: "code-window p-5" },
+    e(
+      "div",
+      { className: "flex items-center justify-between mb-3" },
+      e("span", { className: "chip text-slate-400 tracking-wide" }, "STACK — LIVE CONNECTIONS"),
+      e("span", { className: "w-2 h-2 rounded-full bg-drac-green dot-glow" })
+    ),
+    e(
+      "svg",
+      { viewBox: "0 0 " + SIZE + " " + SIZE, className: "w-full h-auto" },
+      e(
+        "defs",
+        null,
+        e(
+          "filter",
+          { id: "nodeGlow", x: "-60%", y: "-60%", width: "220%", height: "220%" },
+          e("feGaussianBlur", { stdDeviation: 3.2, result: "blur" }),
+          e("feMerge", null, e("feMergeNode", { in: "blur" }), e("feMergeNode", { in: "SourceGraphic" }))
+        )
+      ),
+      STACK_EDGES.map(([a, b], i) => {
+        const pa = positions[a];
+        const pb = positions[b];
+        const active = isEdgeActive(a, b);
+        return e("line", {
+          key: i,
+          x1: pa.x,
+          y1: pa.y,
+          x2: pb.x,
+          y2: pb.y,
+          stroke: active ? "#ff79c6" : "rgba(255,255,255,0.12)",
+          strokeWidth: active ? 1.6 : 1,
+          style: { transition: "stroke .25s ease, stroke-width .25s ease" },
+        });
+      }),
+      positions.map((n, i) =>
+        e(
+          "g",
+          {
+            key: i,
+            onMouseEnter: () => setHover(i),
+            onMouseLeave: () => setHover(null),
+            style: {
+              animation: "constDrift " + (5 + (i % 4)) + "s ease-in-out infinite",
+              animationDelay: i * 0.35 + "s",
+              transformOrigin: n.x + "px " + n.y + "px",
+            },
+          },
+          e("circle", {
+            cx: n.x,
+            cy: n.y,
+            r: hover === i ? n.r + 3 : n.r,
+            fill: "#191a21",
+            stroke: CONSTELLATION_TONES[n.tone],
+            strokeWidth: n.hub ? 2.4 : 1.6,
+            filter: hover === i || n.hub ? "url(#nodeGlow)" : undefined,
+            style: { transition: "r .2s ease", cursor: "default" },
+          }),
+          e(
+            "text",
+            {
+              x: n.x,
+              y: n.hub ? n.y + 4 : n.y + n.r + 13,
+              textAnchor: "middle",
+              fontSize: n.hub ? 10.5 : 9,
+              fontFamily: "'JetBrains Mono', monospace",
+              fill: n.hub ? CONSTELLATION_TONES[n.tone] : "#9fa8c7",
+              style: { pointerEvents: "none" },
+            },
+            n.label
+          )
+        )
+      )
+    )
+  );
+}
+
+function Hero() {
+  const spotRef = useRef(null);
+  const onMouseMove = (evt) => {
+    const el = spotRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const x = evt.clientX - rect.left;
+    const y = evt.clientY - rect.top;
+    el.style.background =
+      "radial-gradient(600px circle at " + x + "px " + y + "px, rgba(255,121,198,0.15), transparent 40%)";
+  };
+  return e(
+    "section",
+    { className: "relative overflow-hidden", onMouseMove },
+    e("div", { className: "absolute inset-0 bg-grid pointer-events-none" }),
+    e("div", { ref: spotRef, className: "absolute inset-0 pointer-events-none" }),
+    e(
+      "div",
+      { className: "max-w-6xl mx-auto px-4 sm:px-6 pt-16 sm:pt-24 pb-20 sm:pb-28 relative fade-up" },
+      e(
+        "div",
+        { className: "grid lg:grid-cols-[1.15fr,1fr] gap-10 lg:gap-14 items-center" },
+        e(
+          "div",
+          null,
+          e(
+            "div",
+            { className: "chip inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/5 text-slate-300 mb-6" },
+            e("span", { className: "w-1.5 h-1.5 rounded-full bg-drac-green dot-glow float" }),
+            "Available for backend / full-stack engagements"
+          ),
+          e(
+            "h1",
+            { className: "text-4xl sm:text-6xl font-extrabold tracking-tight text-white" },
+            "Junior Software Developer / Full-Stack Developer building ",
+            e("span", { className: "grad-text" }, "government-grade systems"),
+            " with a modern React stack."
+          ),
+          e(
+            "p",
+            { className: "mt-6 text-lg text-slate-400" },
+            "I design and ship Laravel-backed platforms end to end — from AdminLTE-era LGU systems to decoupled ",
+            e("span", { className: "text-slate-200" }, "React 19 + Inertia.js + Vite + Tailwind"),
+            " applications with dedicated APIs and SSO. Housing finance, business permitting, HR, payments, and identity systems are my daily domains."
+          ),
+          e(
+            "div",
+            { className: "mt-9 flex flex-wrap gap-4" },
+            e(
+              "a",
+              { href: "#projects", className: "btn-gradient px-5 py-3 rounded-lg font-semibold" },
+              "View projects"
+            ),
+            e(
+              "a",
+              { href: "#flagship", className: "px-5 py-3 rounded-lg border border-white/15 text-slate-200 hover:border-drac-pink/40 hover:text-drac-cyan hover:bg-gradient-to-r hover:from-drac-purple/10 hover:via-drac-pink/10 hover:to-drac-cyan/10 transition-all" },
+              "See the flagship build"
+            )
+          ),
+          e(
+            "div",
+            { className: "mt-16 grid grid-cols-3 max-w-lg gap-3 sm:gap-6" },
+            [
+              { value: 14, suffix: "+", label: "production systems" },
+              { value: 6, suffix: "", label: "government agencies & LGUs" },
+              { value: 3, suffix: "", label: "services in the newest platform" },
+            ].map((s) =>
+              e(
+                "div",
+                { key: s.label },
+                e(CountUp, { target: s.value, suffix: s.suffix }),
+                e("div", { className: "text-xs text-slate-500 mt-1" }, s.label)
+              )
+            )
+          )
+        ),
+        e(CodeWindow)
+      )
+    )
+  );
+}
+
+function About() {
+  return e(
+    "section",
+    { id: "about", className: "max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24 scroll-mt-16" },
+    e(SectionHeading, {
+      eyebrow: "01 — About",
+      title: "From AdminLTE dashboards to decoupled React platforms",
+      icon: "user",
+      tone: "cyan",
+    }),
+    e(
+      Reveal,
+      { className: "grid md:grid-cols-2 gap-10 text-slate-400 leading-relaxed" },
+      e(
+        "p",
+        null,
+        "Most of my career has been spent building Laravel systems for local government units and public agencies in the Philippines — business permit licensing, public employment services, resident identification, and construction quality assurance, usually on a Laravel + AdminLTE + Bootstrap stack with PDF/Excel reporting and barcode or QR-code generation baked in."
+      ),
+      e(
+        "p",
+        null,
+        "My current focus is modernizing that experience into decoupled architectures: separating the frontend, API, and authentication into independent Laravel and React services. ",
+        e("span", { className: "text-slate-200" }, "LIBIS"),
+        " (NHA's Land Information and Billing Information System) is the clearest example — a housing-loan billing and collections platform rebuilt around React 19, Inertia.js v2, Vite, and Tailwind CSS, talking to a versioned Laravel API secured with Sanctum and a dedicated Passport-based SSO service."
+      )
+    )
+  );
+}
+
+function Experience() {
+  return e(
+    "section",
+    { id: "experience", className: "max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24 scroll-mt-16" },
+    e(SectionHeading, {
+      eyebrow: "02 — Experience",
+      title: "Where I'm building this right now",
+      icon: "briefcase",
+      tone: "purple",
+    }),
+    e(
+      Reveal,
+      { className: "gradient-border rounded-2xl p-6 sm:p-8" },
+      e(
+        "div",
+        { className: "flex flex-wrap items-start justify-between gap-4 mb-5" },
+        e(
+          "div",
+          null,
+          e("h3", { className: "text-white font-semibold text-lg" }, "Jr. Software Developer"),
+          e("p", { className: "chip grad-text mt-1" }, "Green Apple Technology and Systems Inc.")
+        ),
+        e(
+          "span",
+          { className: "chip px-3 py-1 rounded-full bg-gradient-to-r from-drac-purple via-drac-pink to-drac-cyan text-slate-950 font-semibold whitespace-nowrap" },
+          "Aug 15, 2024 — Present"
+        )
+      ),
+      e(
+        "p",
+        { className: "text-slate-400 leading-relaxed" },
+        "Building and maintaining Laravel and React/Inertia applications across the company's government and enterprise product lines, from legacy AdminLTE systems to the decoupled ",
+        e("span", { className: "text-slate-200" }, "LIBIS"),
+        " platform. I also work daily with agentic AI tooling — primarily ",
+        e("span", { className: "text-slate-200" }, "Claude Code"),
+        " — to speed up feature development, refactors, and debugging across the stack."
+      ),
+      e(
+        "div",
+        { className: "flex flex-wrap gap-2 mt-6" },
+        ["Laravel", "React 19", "Inertia.js", "Claude Code / Agentic AI", "REST APIs", "Legacy modernization"].map((s) =>
+          e(Chip, { key: s }, s)
+        )
+      ),
+      e(
+        "div",
+        { className: "flex flex-wrap gap-2 mt-4" },
+        e(GitBadge, { icon: "git-branch", tone: "green" }, "main"),
+        e(GitBadge, { icon: "git-commit", tone: "orange" }, "a1f92c3"),
+        e(GitBadge, { icon: "git-branch", tone: "cyan" }, "status: active")
+      )
+    )
+  );
+}
+
+function TechStack() {
+  return e(
+    "section",
+    { id: "stack", className: "max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24 scroll-mt-16" },
+    e(SectionHeading, {
+      eyebrow: "03 — Stack",
+      title: "Tools I reach for",
+      subtitle: "A blend of the modern React/Inertia stack I build new platforms with, and the Laravel/AdminLTE stack that still runs a large share of production LGU systems.",
+      icon: "layers",
+      tone: "pink",
+    }),
+    e(
+      "div",
+      { className: "grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4" },
+      TECH_STACK.map((t, i) =>
+        e(
+          Reveal,
+          { key: t.name, delay: (i % 4) * 60, className: "glass rounded-xl p-4 card-hover" },
+          e(
+            "div",
+            { className: "flex items-center justify-between mb-2.5" },
+            e("div", { className: "h-0.5 w-6 rounded-full bg-gradient-to-r from-drac-purple via-drac-pink to-drac-cyan" }),
+            e(TechIcon, { slug: t.icon, name: t.name })
+          ),
+          e("div", { className: "font-semibold text-white text-sm" }, t.name),
+          e("div", { className: "chip text-slate-500 mt-1" }, t.note)
+        )
+      )
+    ),
+    e(
+      "div",
+      { className: "mt-14" },
+      e("h3", { className: "text-white font-semibold mb-5" }, "Core competencies"),
+      e(
+        "div",
+        { className: "grid sm:grid-cols-2 gap-3" },
+        COMPETENCIES.map((c, i) =>
+          e(
+            Reveal,
+            { key: c, delay: i * 60, className: "flex gap-3 text-sm text-slate-400 glass rounded-lg p-3" },
+            e("span", { className: "text-drac-pink font-mono" }, "▹"),
+            e("span", null, c)
+          )
+        )
+      )
+    )
+  );
+}
+
+function Flagship() {
+  const services = [
+    { name: "libis-bcs-frontend", role: "BIS/BCS frontend — React 19 + Inertia.js v2 + Vite 7 + Tailwind v4 + MUI SPA" },
+    { name: "libis-bcs-api", role: "BIS/BCS backend — Laravel 12 REST API, Sanctum auth, L5-Swagger docs" },
+    { name: "libis-central-auth", role: "Auth/user service — Laravel 12 + Passport, exchanging app access between LIS and BIS" },
+  ];
+  const modules = [
+    "Beneficiaries & Accountable Forms",
+    "Billing, Amortization & Aging",
+    "Collections & Cheque Clearing",
+    "Demand Notices & Disposition",
+    "Fund Transfer & Order of Payments",
+    "Role & Permission Management",
+  ];
+  return e(
+    "section",
+    { id: "flagship", className: "max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24 scroll-mt-16" },
+    e(SectionHeading, {
+      eyebrow: "04 — Flagship build",
+      title: "LIBIS Platform",
+      subtitle: "NHA's Land Information and Billing Information System — rebuilt as a decoupled, multi-service architecture, and the project this portfolio's own stack is modeled on.",
+      icon: "zap",
+      tone: "orange",
+    }),
+    e(
+      Reveal,
+      { className: "gradient-border rounded-2xl p-6 sm:p-8" },
+      e(
+        "div",
+        { className: "flex flex-wrap items-center gap-3 mb-5" },
+        e("span", { className: "chip px-3 py-1 rounded-full bg-gradient-to-r from-drac-purple via-drac-pink to-drac-cyan text-slate-950 font-semibold" }, "In production"),
+        e("span", { className: "chip px-3 py-1 rounded-full bg-white/5 text-slate-400 border border-white/10" }, "Microservice architecture"),
+        e(GitBadge, { icon: "git-branch", tone: "green" }, "release/libis-v2"),
+        e(GitBadge, { icon: "git-commit", tone: "pink" }, "deployed")
+      ),
+      e(
+        "p",
+        { className: "text-slate-400 leading-relaxed max-w-3xl" },
+        "Evolved from ",
+        e("span", { className: "text-slate-200" }, "NHA-BCS"),
+        ", an earlier monolithic Laravel + AdminLTE billing-collection-only system built for NHA Region III/IV, LIBIS broadens the scope to land information and billing — beneficiary accounts, billing, collections, and lot disposition for a housing program — into three independently deployable services covering LIS (Land Information System) and BIS (Billing Information System)."
+      ),
+      e(
+        "div",
+        { className: "grid sm:grid-cols-3 gap-4 mt-8" },
+        services.map((s, i) =>
+          e(
+            Reveal,
+            {
+              key: s.name,
+              delay: i * 80,
+              className: "row-hover rounded-xl border-l-2 border-drac-pink/40 bg-gradient-to-r from-white/[0.04] to-transparent p-4",
+            },
+            e(
+              "div",
+              { className: "flex items-center gap-2" },
+              e("span", { className: "icon-badge glow-cyan w-7 h-7 shrink-0" }, e(Icon, { name: "layers", className: "text-drac-cyan w-3.5 h-3.5" })),
+              e("div", { className: "font-mono text-sm grad-text" }, s.name)
+            ),
+            e("div", { className: "text-sm text-slate-400 mt-2" }, s.role)
+          )
+        )
+      ),
+      e(
+        "div",
+        { className: "mt-8" },
+        e("div", { className: "text-sm font-semibold text-white mb-3" }, "Modules"),
+        e(
+          "div",
+          { className: "flex flex-wrap gap-2" },
+          modules.map((m) => e(Chip, { key: m }, m))
+        )
+      )
+    )
+  );
+}
+
+function ProjectCard({ p }) {
+  const tilt = useTilt(6);
+  return e(
+    "div",
+    {
+      ref: tilt.ref,
+      onMouseMove: tilt.onMouseMove,
+      onMouseLeave: tilt.onMouseLeave,
+      className: "glass tilt-card rounded-2xl p-6 card-hover flex flex-col h-full",
+    },
+    e("h3", { className: "text-white font-semibold text-lg" }, p.name),
+    e("p", { className: "chip grad-text mt-1" }, p.tagline),
+    e("p", { className: "text-sm text-slate-400 mt-3 leading-relaxed flex-1" }, p.desc),
+    e(
+      "div",
+      { className: "flex flex-wrap gap-2 mt-5" },
+      p.stack.map((s) => e(Chip, { key: s }, s))
+    )
+  );
+}
+
+function Projects() {
+  const [active, setActive] = useState("all");
+  const filtered = useMemo(
+    () => (active === "all" ? PROJECTS : PROJECTS.filter((p) => p.cats.includes(active))),
+    [active]
+  );
+
+  return e(
+    "section",
+    { id: "projects", className: "max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24 scroll-mt-16" },
+    e(SectionHeading, {
+      eyebrow: "05 — Selected work",
+      title: "Systems shipped across government, HR, and finance",
+      subtitle: "Filter by domain to see the range — most of these are still running in production for their respective agencies or LGUs.",
+      icon: "folder",
+      tone: "green",
+    }),
+    e(
+      "div",
+      { className: "flex flex-wrap gap-2 mb-10" },
+      CATEGORIES.map((c) =>
+        e(
+          "button",
+          {
+            key: c.key,
+            onClick: () => setActive(c.key),
+            className:
+              "flex items-center gap-1.5 px-4 py-2 rounded-full text-sm border transition-all " +
+              (active === c.key
+                ? "bg-gradient-to-r from-drac-purple via-drac-pink to-drac-cyan text-slate-950 border-transparent font-semibold shadow-lg shadow-drac-purple/25"
+                : "border-white/10 text-slate-400 hover:border-drac-pink/40 hover:text-drac-cyan"),
+          },
+          e(Icon, { name: c.icon, className: "w-3.5 h-3.5" }),
+          c.label
+        )
+      )
+    ),
+    e(
+      "div",
+      { className: "grid sm:grid-cols-2 lg:grid-cols-3 gap-6" },
+      filtered.map((p, i) =>
+        e(Reveal, { key: p.name, delay: (i % 3) * 90, className: "h-full" }, e(ProjectCard, { p }))
+      )
+    )
+  );
+}
+
+function ContactRow({ c }) {
+  const [copied, setCopied] = useState(false);
+  const canCopy = c.label === "Email" && navigator.clipboard;
+  const onCopy = () => {
+    navigator.clipboard.writeText(c.value).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1400);
+    });
+  };
+  const iconBadge = e(
+    "span",
+    {
+      className:
+        "icon-badge glow-pink shrink-0 flex items-center justify-center w-10 h-10 " +
+        (c.href
+          ? "bg-gradient-to-br from-drac-purple via-drac-pink to-drac-cyan text-slate-950 group-hover:scale-105"
+          : "bg-white/10 text-slate-300"),
+    },
+    e(Icon, { name: c.icon })
+  );
+  const textBlock = e(
+    "span",
+    { className: "min-w-0 flex-1" },
+    e("span", { className: "block text-xs text-slate-500" }, c.label),
+    e("span", { className: "block text-sm text-slate-200 truncate" + (c.href ? " group-hover:text-drac-cyan transition-colors" : "") }, c.value)
+  );
+
+  if (!canCopy) {
+    const content = e(
+      "div",
+      { className: "flex items-center gap-3 w-full" },
+      iconBadge,
+      textBlock,
+      c.href && e(Icon, { name: "external-link", className: "shrink-0 text-slate-500 group-hover:text-drac-pink transition-colors w-4 h-4" })
+    );
+    return c.href
+      ? e(
+          "a",
+          {
+            href: c.href,
+            target: "_blank",
+            rel: "noopener noreferrer",
+            className:
+              "group flex items-center rounded-xl border-l-2 border-drac-pink/40 bg-gradient-to-r from-white/[0.04] to-transparent p-4 hover:from-drac-pink/[0.08] transition-colors",
+          },
+          content
+        )
+      : e("div", { className: "flex items-center rounded-xl border-l-2 border-white/10 bg-gradient-to-r from-white/[0.04] to-transparent p-4" }, content);
+  }
+
+  return e(
+    "div",
+    { className: "relative flex items-center gap-3 rounded-xl border-l-2 border-drac-pink/40 bg-gradient-to-r from-white/[0.04] to-transparent p-4" },
+    iconBadge,
+    textBlock,
+    e(
+      "span",
+      { className: "flex items-center gap-1 shrink-0" },
+      e(
+        "button",
+        { type: "button", onClick: onCopy, className: "copy-btn" + (copied ? " copied" : ""), "aria-label": "Copy email address" },
+        e(Icon, { name: copied ? "check" : "copy" })
+      ),
+      e(
+        "a",
+        { href: c.href, target: "_blank", rel: "noopener noreferrer", className: "copy-btn", "aria-label": "Open email client" },
+        e(Icon, { name: "external-link" })
+      )
+    ),
+    copied && e("span", { className: "copy-tip" }, "Copied!")
+  );
+}
+
+function Contact() {
+  return e(
+    "section",
+    { id: "contact", className: "max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24 scroll-mt-16" },
+    e(
+      Reveal,
+      { className: "gradient-border rounded-2xl p-6 sm:p-10 md:p-14 text-center" },
+      e(
+        "div",
+        { className: "flex items-center justify-center gap-2.5 mb-3" },
+        e("span", { className: "icon-badge glow-pink w-8 h-8" }, e(Icon, { name: "mail", className: "text-drac-pink" })),
+        e("p", { className: "chip grad-text uppercase" }, "06 — Contact")
+      ),
+      e(
+        "h2",
+        { className: "text-3xl sm:text-4xl font-extrabold text-white tracking-tight" },
+        "Let's build the next system together."
+      ),
+      e(
+        "p",
+        { className: "mt-4 text-slate-400 max-w-xl mx-auto" },
+        "Open to full-stack Laravel/React work — new builds, API design, or modernizing a legacy AdminLTE application into a decoupled platform."
+      ),
+      e(
+        "div",
+        { className: "mt-10 grid sm:grid-cols-2 gap-4 max-w-2xl mx-auto text-left" },
+        CONTACT_LINKS.map((c, i) => e(Reveal, { key: c.label, delay: i * 70, className: "min-w-0" }, e(ContactRow, { c })))
+      )
+    )
+  );
+}
+
+function Footer() {
+  return e(
+    "div",
+    null,
+    e("div", { className: "hairline" }),
+    e(
+      "footer",
+      { className: "py-8 text-center text-sm text-slate-500" },
+      "© " + new Date().getFullYear() + " Edgar S. Manzano — built with React 19, Tailwind CSS & a lot of Laravel."
+    )
+  );
+}
+
+function App() {
+  return e(
+    "div",
+    null,
+    e(ScrollProgress),
+    e(AuroraBackground),
+    e(Nav),
+    e(Hero),
+    e(About),
+    e(Experience),
+    e(TechStack),
+    e(Flagship),
+    e(Projects),
+    e(Contact),
+    e(Footer),
+    e(BackToTop)
+  );
+}
+
+createRoot(document.getElementById("root")).render(e(App));
+</script>
+</body>
+</html>
