@@ -608,28 +608,28 @@ const CATEGORIES = [
 
 const PROJECTS = [
   {
-    name: "eBOSS-BAIS",
+    name: "Business One-Stop-Shop Platform",
     tagline: "Business One-Stop-Shop & Assessment Info System",
     desc: "Multi-step business registration workflow with online e-payment return handling, business lookup, and assessment reporting for an LGU one-stop-shop.",
     stack: ["Laravel", "AdminLTE", "DomPDF", "e-Payment"],
     cats: ["gov", "payments"],
   },
   {
-    name: "Pagadian eBPLS",
+    name: "Municipal Business Permit & Licensing Platform",
     tagline: "Electronic Business Permit & Licensing System",
     desc: "City-wide LGU platform for issuing business permits, assessing real property tax, and managing tricycle-franchise payments — with abstract-of-collection and consolidation reporting, PDF permit generation, and barcode/QR codes printed on permits and receipts.",
     stack: ["Laravel", "AdminLTE", "Sanctum", "DomPDF", "Excel", "Barcode/QR"],
     cats: ["gov"],
   },
   {
-    name: "PESO System",
+    name: "Employment Facilitation Platform",
     tagline: "Public Employment Service Office Platform",
     desc: "Job seeker/employer matching, SPES & internship program administration, and business accreditation for a government employment-facilitation office.",
     stack: ["Laravel", "AdminLTE", "Sanctum", "Excel"],
     cats: ["gov", "hr"],
   },
   {
-    name: "HRIS",
+    name: "Employee Records Management System",
     tagline: "HR Information System",
     desc: "Employee records management and reporting system built on Laravel with Excel export pipelines.",
     stack: ["Laravel", "AdminLTE", "Sanctum", "Excel"],
@@ -643,9 +643,9 @@ const PROJECTS = [
     cats: ["hr"],
   },
   {
-    name: "Danao e-Payment Portals",
+    name: "LGU e-Payment Portals",
     tagline: "LGU & Utility Online Payment Gateways",
-    desc: "A family of online bill-payment portals for a city government and its water utility (dgpay, altpay, waterworks variants), each handling gateway callbacks and account lookups.",
+    desc: "A family of online bill-payment portals for a city government and its water utility (standard, alternate, and waterworks portal variants), each handling gateway callbacks and account lookups.",
     stack: ["Laravel", "Sanctum", "Payment Gateway"],
     cats: ["payments"],
   },
@@ -657,21 +657,21 @@ const PROJECTS = [
     cats: ["welfare"],
   },
   {
-    name: "SJDB Resident ID System",
+    name: "Municipal Resident ID System",
     tagline: "Municipal Resident ID & Household Registry",
     desc: "A separate municipal deployment of the resident-ID product line, with barangay-level scan workflows and household assistance registries.",
     stack: ["Laravel", "AdminLTE", "DomPDF"],
     cats: ["welfare"],
   },
   {
-    name: "QAS Bilrey",
+    name: "Site QA Tracker",
     tagline: "Construction Site QA & Inspection Tracker",
     desc: "Field inspection system for a construction contractor — daily inspections, concrete pour logs, deliveries, punch lists, and workmanship checklists.",
     stack: ["Laravel", "AdminLTE", "Sanctum", "Excel"],
     cats: ["specialized"],
   },
   {
-    name: "DSHUD Document Routing",
+    name: "Government Document Routing System",
     tagline: "Document & Parcel Routing System",
     desc: "Internal case-routing and transaction-history tracker with barcode-based lookup and a Vue-powered charting dashboard.",
     stack: ["Laravel", "Vue 2", "AdminLTE", "Barcode"],
@@ -685,16 +685,16 @@ const PROJECTS = [
     cats: ["specialized"],
   },
   {
-    name: "NHA Demand Notices",
+    name: "Housing Account Demand Notices",
     tagline: "Housing Account Demand Notice Generator",
-    desc: "Generates barcode/QR-coded demand notices for housing account arrears, part of the broader NHA housing systems line.",
+    desc: "Generates barcode/QR-coded demand notices for housing account arrears, part of the broader housing-agency systems line.",
     stack: ["Laravel", "AdminLTE", "Barcode/QR"],
     cats: ["gov"],
   },
   {
-    name: "PhoenixOne",
-    tagline: "Internal Management System",
-    desc: "A Laravel + AdminLTE administrative system built earlier in the same product line as the NHA and LGU platforms above.",
+    name: "Sales & Inventory Management System",
+    tagline: "Retail Sales & Stock Tracking Platform",
+    desc: "A Laravel + AdminLTE system for sales transaction processing and inventory stock tracking, built earlier in the same product line as the housing-agency and LGU platforms above.",
     stack: ["Laravel 8", "AdminLTE"],
     cats: ["gov"],
   },
@@ -750,7 +750,7 @@ function Nav() {
     ["About", "#about", "My background & focus"],
     ["Experience", "#experience", "Current role"],
     ["Stack", "#stack", "Tools I reach for"],
-    ["Flagship", "#flagship", "The LIBIS platform"],
+    ["Flagship", "#flagship", "The HFP platform"],
     ["Projects", "#projects", "13 systems shipped"],
     ["Contact", "#contact", "Let's talk"],
   ];
@@ -1112,8 +1112,8 @@ function About() {
         "p",
         null,
         "My current focus is modernizing that experience into decoupled architectures: separating the frontend, API, and authentication into independent Laravel and React services. ",
-        e("span", { className: "text-slate-200" }, "LIBIS"),
-        " (NHA's Land Information and Billing Information System) is the clearest example — a housing-loan billing and collections platform rebuilt around React 19, Inertia.js v2, Vite, and Tailwind CSS, talking to a versioned Laravel API secured with Sanctum and a dedicated Passport-based SSO service."
+        e("span", { className: "text-slate-200" }, "HFP"),
+        " (a housing agency's Land Information and Billing Information System) is the clearest example — a housing-loan billing and collections platform rebuilt around React 19, Inertia.js v2, Vite, and Tailwind CSS, talking to a versioned Laravel API secured with Sanctum and a dedicated Passport-based SSO service."
       )
     )
   );
@@ -1151,7 +1151,7 @@ function Experience() {
         "p",
         { className: "text-slate-400 leading-relaxed" },
         "Building and maintaining Laravel and React/Inertia applications across the company's government and enterprise product lines, from legacy AdminLTE systems to the decoupled ",
-        e("span", { className: "text-slate-200" }, "LIBIS"),
+        e("span", { className: "text-slate-200" }, "HFP"),
         " platform. I also work daily with agentic AI tooling — primarily ",
         e("span", { className: "text-slate-200" }, "Claude Code"),
         " — to speed up feature development, refactors, and debugging across the stack."
@@ -1225,9 +1225,9 @@ function TechStack() {
 
 function Flagship() {
   const services = [
-    { name: "libis-bcs-frontend", role: "BIS/BCS frontend — React 19 + Inertia.js v2 + Vite 7 + Tailwind v4 + MUI SPA" },
-    { name: "libis-bcs-api", role: "BIS/BCS backend — Laravel 12 REST API, Sanctum auth, L5-Swagger docs" },
-    { name: "libis-central-auth", role: "Auth/user service — Laravel 12 + Passport, exchanging app access between LIS and BIS" },
+    { name: "hfp-bcs-frontend", role: "BIS/BCS frontend — React 19 + Inertia.js v2 + Vite 7 + Tailwind v4 + MUI SPA" },
+    { name: "hfp-bcs-api", role: "BIS/BCS backend — Laravel 12 REST API, Sanctum auth, L5-Swagger docs" },
+    { name: "hfp-central-auth", role: "Auth/user service — Laravel 12 + Passport, exchanging app access between LIS and BIS" },
   ];
   const modules = [
     "Beneficiaries & Accountable Forms",
@@ -1242,8 +1242,8 @@ function Flagship() {
     { id: "flagship", className: "max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24 scroll-mt-16" },
     e(SectionHeading, {
       eyebrow: "04 — Flagship build",
-      title: "LIBIS Platform",
-      subtitle: "NHA's Land Information and Billing Information System — rebuilt as a decoupled, multi-service architecture, and the project this portfolio's own stack is modeled on.",
+      title: "HFP Platform",
+      subtitle: "A housing agency's Land Information and Billing Information System — rebuilt as a decoupled, multi-service architecture, and the project this portfolio's own stack is modeled on.",
       icon: "zap",
       tone: "orange",
     }),
@@ -1255,15 +1255,15 @@ function Flagship() {
         { className: "flex flex-wrap items-center gap-3 mb-5" },
         e("span", { className: "chip px-3 py-1 rounded-full bg-gradient-to-r from-drac-purple via-drac-pink to-drac-cyan text-slate-950 font-semibold" }, "In production"),
         e("span", { className: "chip px-3 py-1 rounded-full bg-white/5 text-slate-400 border border-white/10" }, "Microservice architecture"),
-        e(GitBadge, { icon: "git-branch", tone: "green" }, "release/libis-v2"),
+        e(GitBadge, { icon: "git-branch", tone: "green" }, "release/hfp-v2"),
         e(GitBadge, { icon: "git-commit", tone: "pink" }, "deployed")
       ),
       e(
         "p",
         { className: "text-slate-400 leading-relaxed max-w-3xl" },
         "Evolved from ",
-        e("span", { className: "text-slate-200" }, "NHA-BCS"),
-        ", an earlier monolithic Laravel + AdminLTE billing-collection-only system built for NHA Region III/IV, LIBIS broadens the scope to land information and billing — beneficiary accounts, billing, collections, and lot disposition for a housing program — into three independently deployable services covering LIS (Land Information System) and BIS (Billing Information System)."
+        e("span", { className: "text-slate-200" }, "BCS"),
+        ", an earlier monolithic Laravel + AdminLTE billing-collection-only system built for the agency's regional offices, HFP broadens the scope to land information and billing — beneficiary accounts, billing, collections, and lot disposition for a housing program — into three independently deployable services covering LIS (Land Information System) and BIS (Billing Information System)."
       ),
       e(
         "div",
